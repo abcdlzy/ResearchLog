@@ -1,6 +1,22 @@
 ### 笔记
 
-##### AFL进程间通信
+##### 使用到的外部函数
+
+| 函数名      | 功能                                                         |
+| ----------- | ------------------------------------------------------------ |
+| sched_yield | 函数可以使用另一个级别等于或高于当前线程的线程先运行。如果没有符合条件的线程，那么这个函数将会立刻返回然后继续执行当前线程的程序。在成功完成之后返回零，否则返回-1. |
+| memcpy      | C 库函数 void *memcpy(void *str1, const void *str2, size_t n) 从存储区 str2 复制 n 个字符到存储区 str1。 |
+|             |                                                              |
+|             |                                                              |
+|             |                                                              |
+|             |                                                              |
+|             |                                                              |
+|             |                                                              |
+|             |                                                              |
+
+
+
+#### AFL进程间通信
 
 在linux中，使用shm共享内存进行通信。
 
@@ -10,7 +26,7 @@ shm_id = shmget(IPC_PRIVATE, MAP_SIZE, IPC_CREAT | IPC_EXCL | 0600);
 
 
 
-###### Linux进程通信
+##### Linux进程通信
 
 IPC_PRIVATE [ https://blog.csdn.net/niepangu/article/details/55271708 ]：
 使用IPC_PRIVATE创建的IPC对象, key值属性为0，和IPC对象的编号就没有了对应关系。这样毫无关系的进程，就不能通过key值来得到IPC对象的编号（因为这种方式创建的IPC对象的key值都是0）。因此，这种方式产生的IPC对象，和无名管道类似，不能用于毫无关系的进程间通信。但也不是一点用处都没有，仍然可以用于有亲缘关系的进程间通信。
@@ -21,6 +37,8 @@ IPC_PRIVATE [ https://blog.csdn.net/niepangu/article/details/55271708 ]：
 
 用于[Linux](https://baike.baidu.com/item/Linux/27050)进程通信(IPC)共享内存。共享内存函数由shmget、shmat、shmdt、shmctl四个函数组成。
 
+###### shmget()
+
 ```c++
 int shmget(key_t key, size_t size, int shmflg)
 ```
@@ -29,9 +47,32 @@ int shmget(key_t key, size_t size, int shmflg)
 
 
 
+###### memcpy()
+
+ C 标准库 - <string.h>
+**描述**
+C 库函数 void *memcpy(void *str1, const void *str2, size_t n) 从存储区 str2 复制 n 个字符到存储区 str1。
+**声明**
+下面是 memcpy() 函数的声明。
+void *memcpy(void *str1, const void *str2, size_t n)
+**参数**
+str1 -- 指向用于存储复制内容的目标数组，类型强制转换为 void* 指针。
+str2 -- 指向要复制的数据源，类型强制转换为 void* 指针。
+n -- 要被复制的字节数。
+**返回值**
+该函数返回一个指向目标存储区 str1 的指针。
+
+
+
+
+
+
+
+
+
 ### afl-analyze
 
-函数表
+##### 函数表
 
 | 函数名                | 功能                                                         |
 | --------------------- | ------------------------------------------------------------ |
@@ -62,7 +103,7 @@ int shmget(key_t key, size_t size, int shmflg)
 
 ### afl-as
 
-函数表
+##### 函数表
 
 | 函数名              | 功能                                                         |
 | ------------------- | ------------------------------------------------------------ |
@@ -74,7 +115,9 @@ int shmget(key_t key, size_t size, int shmflg)
 
 ### afl-fuzz
 
-函数表（92个函数，真多啊ORZ）
+##### 函数表
+
+92个函数，真多啊ORZ
 
 | 函数名                 | 功能                                                         |
 | ---------------------- | ------------------------------------------------------------ |
@@ -90,9 +133,9 @@ int shmget(key_t key, size_t size, int shmflg)
 | check_crash_handling   | /* Make sure that core dumps don't go to a program. */       |
 | setup_stdio_file       | /* Setup the output file for fuzzed data, if not using -f. */ |
 | setup_dirs_fds         | /* Prepare output directories and fds. */                    |
-| usage                  | /* Display usage hints. */                                   |
+| usage                  | 显示使用说明                                                 |
 | check_term_size        | /* Check terminal dimensions after resize. */                |
-| check_if_tty           | /* Check if we're on TTY. */                                 |
+| check_if_tty           | 检查是否在TTY模式                                            |
 | fix_up_banner          | /* Trim and possibly create a banner for the run. */         |
 | check_binary           | /* Do a PATH search and find target binary to see that it exists and isn't a shell script - a common and painful mistake. We also check for a valid ELF header and for evidence of AFL instrumentation. */ |
 | handle_timeout         | /* Handle timeout (SIGALRM). */                              |
@@ -173,9 +216,15 @@ int shmget(key_t key, size_t size, int shmflg)
 
 
 
+##### fuzz_one 函数流程
+
+
+
+
+
 ### afl-gcc
 
-函数表
+##### 函数表
 
 | 函数名      | 功能                                                         |
 | ----------- | ------------------------------------------------------------ |
@@ -187,20 +236,50 @@ int shmget(key_t key, size_t size, int shmflg)
 
 ### afl-gotcpu
 
-函数表
+##### 函数表
 
-| 函数名             | 功能                                 |
-| ------------------ | ------------------------------------ |
-| main               | 程序入口点                           |
-| measure_preemption | /* Measure preemption rate. */       |
-| get_cpu_usage_us   | /* Get CPU usage in microseconds. */ |
-| get_cur_time_us    | /* Get unix time in microseconds. */ |
+| 函数名             | 功能                           |
+| ------------------ | ------------------------------ |
+| main               | 程序入口点                     |
+| measure_preemption | /* Measure preemption rate. */ |
+| get_cpu_usage_us   | 获取1微秒的CPU使用率           |
+| get_cur_time_us    | 获取UNIX时间                   |
+
+
+
+get_cpu_usage_us
+
+```c++
+  getrusage(RUSAGE_SELF, &u);
+```
+
+==》getrusage
+
+功能描述：
+    获得进程的相关资源信息。如：用户开销时间，系统开销时间，接收的信号量等等;
+
+用法：
+   #include <sys/types.h>
+   #include <sys/time.h>
+   #include <sys/resource.h>
+
+   #define   RUSAGE_SELF     0
+   #define   RUSAGE_CHILDREN     -1
+
+   int getrusage(int who, struct rusage *usage); 
+    当调用成功后，返回0，否则-1；  
+
+参数：
+    who：可能选择有
+    RUSAGE_SELF：获取当前进程的资源使用信息。以当前进程的相关信息来填充rusage(数据)结构
+    RUSAGE_CHILDREN：获取子进程的资源使用信息。rusage结构中的数据都将是当前进程的子进程的信息
+    usage：指向存放资源使用信息的结构指针。
 
 
 
 ### afl-showmap
 
-函数表
+##### 函数表
 
 | 函数名                | 功能                                                         |
 | --------------------- | ------------------------------------------------------------ |
@@ -224,7 +303,7 @@ int shmget(key_t key, size_t size, int shmflg)
 
 ### afl-tmin
 
-函数表
+##### 函数表
 
 | 函数名                | 功能                                                         |
 | --------------------- | ------------------------------------------------------------ |
