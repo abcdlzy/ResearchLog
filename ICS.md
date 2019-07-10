@@ -1,3 +1,21 @@
+##### S7comm
+
+------
+
+[工控安全 | 西门子通信协议S7COMM（Part 1） ](https://www.freebuf.com/articles/ics-articles/188159.html)
+
+[工控安全 | 西门子通信协议S7COMM（Part 2）](https://www.freebuf.com/articles/ics-articles/188606.html)
+
+[https://nmap.org/nsedoc/scripts/s7-info.html](https://nmap.org/nsedoc/scripts/s7-info.html)
+
+[https://github.com/meeas/plcscan](https://github.com/meeas/plcscan)
+
+
+
+##### .ap13
+
+------
+
 .ap13需要TIA PORTAL v13 sp1来打开
 
 [ https://support.industry.siemens.com/cs/mdm/109742302?c=92338901003&lc=zh-CN ]
@@ -9,7 +27,11 @@
 
 
 
+##### .PCZ
+
+------
+
 .PCZ使用力控组态恢复
 
-![1562726879253](C:\Users\username\OneDrive\文档\ResearchLog\assets\1562726879253.png)
+![1562726879253](assets/1562726879253.png)
 
