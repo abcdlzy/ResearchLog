@@ -424,7 +424,7 @@ To avoid the hassle of building syntax-aware tools, afl-fuzz provides a way to
 seed the fuzzing process with an optional dictionary of language keywords,
 magic headers, or other special tokens associated with the targeted data type
 
-
+为了避免构建语法感知工具的麻烦，afl-fuzz 提供了一种通过可选的语言关键字字典、幻头或与目标数据类型关联的其他特殊标记来设定模糊过程种子的方法。
 
 - and use that to reconstruct the underlying grammar on the go:
 
