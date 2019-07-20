@@ -1,3 +1,17 @@
+##### Tools
+
+------
+
+https://github.com/atimorin/scada-tools
+
+http://code.google.com/p/plcscan
+
+https://github.com/bl4ckic3/Modbus-Fuzzer
+
+https://github.com/dathlin/HslCommunication
+
+
+
 ##### S7comm
 
 ------
